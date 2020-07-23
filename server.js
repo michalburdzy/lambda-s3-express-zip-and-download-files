@@ -32,24 +32,24 @@ app.get("/download", async (req, res) => {
     };
 
     // SOLUTION 1 - no headers :/
-    return s3.getObject(s3Params).createReadStream().pipe(res);
+    // return s3.getObject(s3Params).createReadStream().pipe(res);
 
     // SOLUTION 2
-    // return s3.headObject(s3Params, (err, headData) => {
-    //   if (err) throw err;
-    //   console.log(headData);
-    //   const stream = s3.getObject(s3Params).createReadStream();
-    //   stream.on("error", function error(err) {
-    //     throw err;
-    //   });
+    return s3.headObject(s3Params, (err, headData) => {
+      if (err) throw err;
+      console.log(headData);
+      const stream = s3.getObject(s3Params).createReadStream();
+      stream.on("error", function error(err) {
+        throw err;
+      });
 
-    //   res.header({
-    //     "Content-Disposition": "attachment; filename=test.pdf",
-    //     "Content-Type": headData.ContentType,
-    //     "Content-Length": headData.ContentLength,
-    //   });
-    //   return stream.pipe(res);
-    // });
+      res.header({
+        "Content-Disposition": "attachment; filename=" + s3Params.Key,
+        "Content-Type": headData.ContentType,
+        "Content-Length": headData.ContentLength,
+      });
+      return stream.pipe(res);
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
