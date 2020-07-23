@@ -1,0 +1,19 @@
+{
+  "name": "zip_and_download_files_from_s3_via_lambda",
+  "version": "1.0.0",
+  "description": "trying to zip files in lambda and stream them to frontend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Michal Burdzy",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^5.0.0",
+    "aws-sdk": "^2.717.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lambda-s3-archiver": "^1.3.0"
+  }
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download zipped docs from s3</title>
+  </head>
+  <body>
+    <button>Download zip file</button>
+    <script>
+      document.querySelector("button").addEventListener("click", async () => {
+        const data = await fetch("http://localhost:3000/download")
+          .then((d) => d.json())
+          .catch((err) => console.log(err));
+
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>
